@@ -55,3 +55,7 @@ Clone independente fornecido pelo responsável; manter o origin existente. Commi
 ## Kubernetes local
 
 Manifestos e sequência de implantação em [k8s/README.md](k8s/README.md). G7 concluído; [evidências deste serviço](docs/quality/g7-validation.md) e registro transversal na infraestrutura.
+
+## Resiliência — G8
+
+Regressão concluída com 47 testes aprovados; [evidências e limites](docs/quality/g8-validation.md). Recuperação integrada no Kubernetes registrada na infraestrutura. Próxima etapa: entrega acadêmica G9.

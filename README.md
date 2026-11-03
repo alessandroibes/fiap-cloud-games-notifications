@@ -6,7 +6,7 @@ Boas-vindas e confirmação Approved no console, com deduplicação lógica dur�
 
 G5 implementado em .NET 8, PostgreSQL/EF Core e MassTransit/RabbitMQ: boas-vindas, confirmação somente após Approved, deduplicação durável e emissão recuperável no console. Suíte local: 47 testes aprovados. [Evidências e limites](docs/quality/g5-validation.md).
 
-Compose centralizado pertence ao G6; manifests /k8s e Docker Desktop Kubernetes ao G7. Não há envio de e-mail real.
+Compose centralizado e Kubernetes Docker Desktop validados nos gates G6/G7, com resiliência reexecutada no G8. Não há envio de e-mail real.
 
 ## Documentação
 
@@ -16,6 +16,12 @@ Compose centralizado pertence ao G6; manifests /k8s e Docker Desktop Kubernetes 
 - [Operação, configuração e recuperação](docs/operations.md).
 - [UserCreatedEvent V1](docs/contracts/v1/user-created-v1.md) e [PaymentProcessedEvent V1](docs/contracts/v1/payment-processed-v1.md).
 - Contratos canônicos e roadmap: repositório fiap-cloud-games-infrastructure, docs/contracts/v1/ e docs/implementation/roadmap.md. Tipos C# locais, sem dependência de projetos irmãos.
+
+## Repositório e solução completa
+
+Código deste serviço: [GitHub](https://github.com/alessandroibes/fiap-cloud-games-notifications). Para executar os quatro serviços juntos, siga o [README da infraestrutura](https://github.com/alessandroibes/fiap-cloud-games-infrastructure), com clones irmãos e `scripts/Start-Local.ps1` ou `scripts/Start-Kubernetes.ps1`.
+
+Os comandos abaixo descrevem o modo de desenvolvimento individual. Não iniciar o Compose individual ao mesmo tempo que a API correspondente do Compose central, pois compartilham portas e dependências. As suítes de teste usam ambientes exclusivos.
 
 ## Execução e configuração
 
@@ -58,4 +64,18 @@ Manifestos e sequência de implantação em [k8s/README.md](k8s/README.md). G7 c
 
 ## Resiliência — G8
 
-Regressão concluída com 47 testes aprovados; [evidências e limites](docs/quality/g8-validation.md). Recuperação integrada no Kubernetes registrada na infraestrutura. Próxima etapa: entrega acadêmica G9.
+Regressão concluída com 47 testes aprovados; [evidências e limites](docs/quality/g8-validation.md). Recuperação integrada no Kubernetes registrada na infraestrutura. Preparação documental da entrega G9 na infraestrutura; vídeo e relatório acadêmico dependem dos dados e da gravação do responsável.
+
+## Variáveis de ambiente
+
+Exemplo sem credenciais reais: [.env.example](.env.example). Gere a configuração com Initialize-Local; segredos efetivos ficam em .env ignorado. A infraestrutura central possui configuração própria e traduz suas variáveis para estas chaves da aplicação.
+
+| Chave | Finalidade |
+|---|---|
+| ConnectionStrings__Notifications | Conexão PostgreSQL exclusiva deste serviço |
+| NOTIFICATIONS_DOCKER_CONNECTION | Conexão usada pelo Compose individual, com DNS postgres |
+| RabbitMq__Host / RabbitMq__Port | Endereço e porta AMQP |
+| RabbitMq__VirtualHost / RabbitMq__Username / RabbitMq__Password | Vhost e credencial externa do broker |
+| ASPNETCORE_URLS | Endereço HTTP na execução local pelo SDK |
+
+Portas e credenciais exclusivas de testes estão descritas em .env.example e [operação](docs/operations.md). Consulte [k8s/README.md](k8s/README.md) para ConfigMap/Secret, probes e Jobs. Nunca usar credenciais de outro banco nem executar migrations automaticamente no startup.

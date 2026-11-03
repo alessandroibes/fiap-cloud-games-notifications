@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../FiapCloudGames.Notifications.Domain/FiapCloudGames.Notifications.Domain.csproj" />
+    <ProjectReference Include="../FiapCloudGames.Notifications.Application/FiapCloudGames.Notifications.Application.csproj" />
+    <ProjectReference Include="../FiapCloudGames.Notifications.Contracts/FiapCloudGames.Notifications.Contracts.csproj" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10" PrivateAssets="all" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.10" />
+    <PackageReference Include="System.Text.Json" Version="9.0.10" />
+  </ItemGroup>
+</Project>

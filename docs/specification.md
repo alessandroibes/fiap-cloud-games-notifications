@@ -1,6 +1,6 @@
 # SPEC-P2-NOTIFICATIONS — NotificationsAPI
 
-**Estado:** Especificação de planejamento, alinhada aos ADRs aceitos; implementação ainda não iniciada.
+**Estado:** G5 implementado; 47 testes locais aprovados. [Evidências](quality/g5-validation.md). Compose centralizado no G6 e Kubernetes no G7.
 
 ## Responsabilidade
 Simular notificações por logs no console, sem integração com provedor real de e-mail.
@@ -14,8 +14,8 @@ Simular notificações por logs no console, sem integração com provedor real d
 6. Testes cobrem ambos os eventos, aprovação/rejeição e duplicatas.
 
 ## Decisões confirmadas e detalhamento técnico
-Confirmado em 30/10/2026: registro técnico durável e único por tipo/usuário ou tipo/pedido, com emissão recuperável. Pode haver repetição física do log na janela de falha entre emissão e confirmação; nunca duplicar a notificação lógica. Detalhar formato dos logs e configuração técnica.
+Confirmado em 30/10/2026: registro técnico durável e único por tipo/usuário ou tipo/pedido, com emissão recuperável. Implementado com EventReceipts, Subjects e Notifications. Worker escreve JSON e faz flush antes de marcar Emitted. Pode haver repetição física do log na janela de falha entre emissão e confirmação; nunca duplicar a notificação lógica. [Formato, retentativas, comandos de recuperação e limites](operations.md).
 
 ## Baseline obrigatória para implementação
 
-As decisões dos ADR-P2-001 a ADR-P2-007 estão **Aceitas**. Implementar com PostgreSQL e Docker Desktop Kubernetes; contratos V1 conforme `docs/contracts/`.
+As decisões dos ADR-P2-001 a ADR-P2-007 estão **Aceitas**. PostgreSQL implementado; Docker Desktop Kubernetes previsto no G7. Contratos V1 em `docs/contracts/v1/`.

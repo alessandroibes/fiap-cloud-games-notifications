@@ -51,3 +51,7 @@ Falhas de consumo têm retentativas limitadas e filas _error. Falhas registradas
 ## Git e segurança
 
 Clone independente fornecido pelo responsável; manter o origin existente. Commits separados, sem push ou publicação de imagens sem autorização. Documentação técnica é versionada. AGENTS.md, specs/, .codex/ e docs/course/ são locais e ignorados; segredos fora do Git.
+
+## Kubernetes local
+
+Manifestos e sequência de implantação em [k8s/README.md](k8s/README.md). G7 concluído; [evidências deste serviço](docs/quality/g7-validation.md) e registro transversal na infraestrutura.
